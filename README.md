@@ -1,4 +1,4 @@
-# The Ultimate Plex Stack!
+# The Ultimate Jellyfin Stack!
 
 Welcome to my Plex stack repository! This repository showcases my Docker Compose setup for managing various media-related services using Docker containers. The compose file is meant to be changed to each users liking as I know not everyone has the same requirements. Hope you enjoy!
 
@@ -6,17 +6,16 @@ Welcome to my Plex stack repository! This repository showcases my Docker Compose
 
 This Plex Stack includes the following services:
 
-- **Plex:** Media server for streaming movies and TV shows.
+- **Jellyfin:** Media server for streaming movies and TV shows.
 - **Radarr:** Movie management and automation.
 - **Sonarr:** TV show management and automation.
 - **Prowlarr:** Indexer manager for Radarr and Sonarr.
-- **Overseerr:** Request management and monitoring for Plex.
+- **Jellyseerr:** Request management and monitoring for Jellyfin.
 - **Gluetun:** VPN container with WireGuard support for secure browsing.
 - **Qbittorrent:** BitTorrent client with VPN support.
 - **Tdarr:** Pre-transcodes your media to decrease file sizes
 - **De-unhealth:** Monitors VPN health and restarts Qbittorrent if necessary.
-- **Membarr:** Invite users to your Plex via discord
-- **Tautulli:** Analytics and monitoring for Plex.
+- **Membarr:** Invite users to your Jellyfin via discord
 - **Bazarr:** Subtitle management for movies and TV shows.
 - **Autobrr:** Used to grab torrents immediately as they are released.
 - **Readarr:** Used to grab books and audiobooks.
@@ -24,8 +23,6 @@ This Plex Stack includes the following services:
 - **Flaresolverr:** Used as a proxy server to bypass Cloudflare and DDoS-GUARD protection.
 - **Dozzle:** Used to view the logs of any container.
 - **Wizarr:** Used to create links that can be sent to users so they can be invited to your media server.
-- **Plex Meta Manager:** Used to create collections, overlays, playlists and much more!
-- **Plex Auto Lanaguages:** Used to auto update the language of your Plex Tv episodes
 
 <img width="353" alt="image" src="https://github.com/DonMcD/ultimate-plex-stack/assets/90471623/a9b8faf8-072e-4fb3-ac18-2ffd29d0f760">
 
@@ -41,7 +38,7 @@ This Plex Stack includes the following services:
 1. Clone this repository / Copy the docker-compose.yml file:
 
    ```bash
-   git clone https://github.com/DonMcD/ultimate-plex-stack.git
+   git clone https://github.com/Wh1rr/ultimate-jellyfin-stack.git
 2. Fill in the required details such as the environment variables
 3. OPTIONAL: Setup a reverse proxy so you can use radarr.my-domain.com instead of 192.168.1.10 to access each of your apps
 

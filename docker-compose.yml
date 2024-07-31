@@ -31,11 +31,7 @@ services:
     container_name: jellyfin
     network_mode: host
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
-      - VERSION=docker
-      - JELLYFIN_CLAIM=${JELLYFIN_CLAIM}
+      - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}
     ports:
       - 32400:32400
     devices:
@@ -317,4 +313,27 @@ services:
       #- UN_RADARR_0_PATHS_0=/share/downloads/movies
       - UN_RADARR_0_TIMEOUT=10s
       #- UN_RADARR_0_PATHS_0=/share/downloads/movies
+      
+  gluetun:
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=mullvad
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=wOEI9rqqbDwnN8/Bpp22sVz48T71vJ4fYmFWujulwUU=
+      - WIREGUARD_ADDRESSES=10.64.222.21/32
+      - SERVER_CITIES=Amsterdam
+
+  cabernet:
+    image: ghcr.io/cabernetwork/cabernet:latest
+    container_name: cabernet
+    volumes:
+      - ./cabernet-plugins:/app/plugins_ext
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${GUID}
+    ports:
+      - 5004:5004
  

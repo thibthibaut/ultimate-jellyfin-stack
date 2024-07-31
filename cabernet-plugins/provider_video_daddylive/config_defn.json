@@ -1,0 +1,108 @@
+{
+    "streams":{
+        "id": null,
+        "icon": "cast",
+        "label": "Stream Providers",
+        "description": "Streaming Services",
+        "sections":{
+            "daddylive":{
+                "label": "DaddyLive",
+                "sort": "DaddyLive1",
+                "icon": "cast",
+                "description": "Settings for DaddyLive",
+                "settings":{
+                    "enabled":{
+                        "label": "Enabled",
+                        "type": "boolean",
+                        "default": true,
+                        "level": 0,
+                        "help": "Default: True. Will disable if an error occurs; otherwise set to disable to disable plugin"
+                    },
+                    "plugin_image":{
+                        "label": "Image",
+                        "type": "image",
+                        "default": null,
+                        "level": 0,
+                        "help": "The plugin icon"
+                    },
+                    "version":{
+                        "label": "Version",
+                        "type": "string",
+                        "default": null,
+                        "level": 0,
+                        "writable": false,
+                        "help": "Version of the plugin in the plugin.json file"
+                    },
+                    "hdhr_id":{
+                        "label": "hdhr_id",
+                        "type": "string",
+                        "default": null,
+                        "level": 3,
+                        "writable": false,
+                        "onInit": "lib.config.config_callbacks.set_hdhomerun_id",
+                        "help": "Unique HDHomerun CRC-based hex code for this plugin"
+                    },
+                    "player-tuner_count":{
+                        "label": "tuner_count",
+                        "type": "integer",
+                        "default": 10,
+                        "level": 2,
+                        "help": "Default: 10. Number of streams active at one time"
+                    },
+                    "player-send_atsc_keepalive":{
+                        "label": "Send ATSC Keep-Alive",
+                        "type": "boolean",
+                        "default": false,
+                        "level": 2,
+                        "help": "Default: False. For internalpproxy, when the provider stops sending packets or the stream is being filtered for 15 seconds, will send a ATSC keep-alive msg to client"
+                    },
+                    "stream-g_http_session":{
+                        "label": "Maintain HTTP Session",
+                        "type": "boolean",
+                        "default": false,
+                        "level": 2,
+                        "help": "Default: false. If true, then the HTTP session will span requests.  If false, will create a new HTTP session for each request."
+                    },
+                    "stream-g_stream_timeout":{
+                        "label": "Stream Timeout",
+                        "type": "integer",
+                        "default": 140,
+                        "level": 3,
+                        "help": "Default: 140. Used on internalproxy, streamlinkproxy and ffmpegproxy. Time in seconds to shutdown stream when no data comes from provider.  Should be about 4x HTTPRetries*HTTPTimeout"
+                    },
+                    "stream-g_concurrent_downloads":{
+                        "label": "Concurrent Downloads",
+                        "type": "integer",
+                        "default": 4,
+                        "level": 1,
+                        "help": "Default: 1. Only used on internalproxy. Minimum is 0. Number of parallel video packet downloads happening at one time.  A value of one means no parallel processing.  Helps when provider requests are timing out."
+                    },
+                    "stream-g_http_timeout":{
+                        "label": "HTTP Timeout",
+                        "type": "integer",
+                        "default": 12,
+                        "level": 3,
+                        "help": "Default: 8. Only used on internalproxy. Time in seconds for the time to wait for the provider to respond for each HTTP video packet request"
+                    },
+                    "stream-g_http_retries":{
+                        "label": "HTTP Retries",
+                        "type": "integer",
+                        "default": 2,
+                        "level": 3,
+                        "help": "Default: 2. Only used on internalproxy. Minimum is 1. Number of times the HTTP video packet request occurs when errors are returned by provider"
+                    },
+                    "epg-plugin":{
+                        "label": "EPG Plugin to Use",
+                        "type": "list",
+                        "default": "None",
+                        "values": ["None", "ALL"],
+                        "level": 1,
+                        "onChange": ".provider_video_daddylive.lib.config_callbacks.license_confirmation",
+                        "help": "Default: None. The EPG plugin to use to gather data for personal use"
+                    }
+                }
+            }
+        }
+    }
+}
+

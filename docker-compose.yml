@@ -48,7 +48,6 @@ services:
   jellyfin:
     image: ghcr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
-    network_mode: host
     environment:
       - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}
     ports:
@@ -59,8 +58,6 @@ services:
       - ${BASE_PATH}/jellyfin/config:/config
       - ${MEDIA_SHARE}/media
     restart: unless-stopped
-    networks:
-      - proxy
     labels:
       - swag=enable
     

@@ -52,7 +52,6 @@ services:
   jellyfin:
     image: ghcr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
-    network_mode: host
     environment:
       - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}
     ports:

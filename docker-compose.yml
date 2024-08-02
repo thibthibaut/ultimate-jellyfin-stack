@@ -32,7 +32,7 @@ services:
       - ${BASE_PATH}/swag:/config
     restart: unless-stopped
     extra_hosts:
-      - the-bonfire.uk:
+      - the-bonfire.uk
 
   # docker-rpxoy for swag
   dockerproxy:

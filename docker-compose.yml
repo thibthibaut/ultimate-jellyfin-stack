@@ -10,6 +10,8 @@ services:
   swag:
     image: lscr.io/linuxserver/swag
     container_name: swag
+    cap_add:
+      - NET_ADMIN
     environment:
       - PUID=${PUID}
       - PGID=${GUID}
@@ -29,6 +31,8 @@ services:
     volumes:
       - ${BASE_PATH}/swag:/config
     restart: unless-stopped
+    extra_hosts:
+      - the-bonfire.uk:
 
   # docker-rpxoy for swag
   dockerproxy:

@@ -1,5 +1,11 @@
 version: "3.0"
 
+volumes:
+  share:
+    external: true
+  home:
+    external: true
+
 networks: #This is used if you have a reverse proxy. I use Nginx Proxy Manager but anything will do
   proxy: #You can remove this block if you are not planning to use a vpn
     external:
@@ -354,8 +360,3 @@ services:
     ports:
       - 5004:5004
       
- volumes:
-   share:
-     external: true
-   home:
-     external: true

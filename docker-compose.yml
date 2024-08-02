@@ -14,7 +14,7 @@ services:
       - PUID=${PUID}
       - PGID=${GUID}
       - TZ=${TZ}
-      - URL=the-bonfire.uk
+      - URL=jellyfin.the-bonfire.uk
       - VALIDATION=dns
       - SUBDOMAINS=wildcard
       - DNSPLUGIN=cloudflare

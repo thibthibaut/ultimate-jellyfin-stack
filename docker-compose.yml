@@ -2,8 +2,10 @@ version: "3.0"
 
 volumes:
   share:
+    name: ${BASE_PATH}
     external: true
   home:
+    name: ${MEDIA_SHARE}
     external: true
 
 networks: #This is used if you have a reverse proxy. I use Nginx Proxy Manager but anything will do

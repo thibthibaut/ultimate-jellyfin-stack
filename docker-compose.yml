@@ -10,7 +10,6 @@ services:
   swag:
     image: lscr.io/linuxserver/swag
     container_name: swag
-    network_mode: host
     cap_add:
       - NET_ADMIN
     environment:

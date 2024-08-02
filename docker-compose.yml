@@ -14,9 +14,9 @@ services:
       - PUID=${PUID}
       - PGID=${GUID}
       - TZ=${TZ}
-      - URL=jellyfin.the-bonfire.uk
+      - URL=the-bonfire.uk
       - VALIDATION=dns
-      - SUBDOMAINS=wildcard
+      - SUBDOMAINS=jellyfin
       - DNSPLUGIN=cloudflare
       - DOCKER_MODS=linuxserver/mods:swag-auto-proxy|linuxserver/mods:universal-docker|linuxserver/mods:universal-cloudflared
       - DOCKER_HOST=dockerproxy

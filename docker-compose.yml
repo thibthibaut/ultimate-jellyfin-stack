@@ -30,7 +30,7 @@ services:
       - CF_TUNNEL_PASSWORD=iugv1k5guvf4kgh15vk4ghc5ku3o6gu3y4vg1o4uy159
       - FILE__CF_TUNNEL_CONFIG=/config/tunnelconfig.yml
     volumes:
-      - ${BASE_PATH}/swag:/config
+      - ${BASE_PATH}/swag/config:/config
     ports:
       - 443:443
     restart: unless-stopped
@@ -59,7 +59,7 @@ services:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
       - ${BASE_PATH}/jellyfin/config:/config
-      - ${MEDIA_SHARE}/media
+      - ${MEDIA_SHARE}:/media
     restart: unless-stopped
     labels:
       - swag=enable

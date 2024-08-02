@@ -44,7 +44,7 @@ services:
   #Jellyfin - used to display the media
   #This can also be replaced by Emby/Plex
   jellyfin:
-    image: jellyfin/jellyfin
+    image: ghcr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     network_mode: host
     environment:

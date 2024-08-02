@@ -166,7 +166,7 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - ${BASE_PATH}/jellyseerr/config:/config
+      - ${BASE_PATH}/jellyseerr/config:/app/config
       - ${MEDIA_SHARE}:/share #Access to the entire ${BASE_PATH}
     #networks:
     #  - proxy

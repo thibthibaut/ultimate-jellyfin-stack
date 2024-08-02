@@ -1,9 +1,4 @@
 version: "3.0"
-
-networks: #This is used if you have a reverse proxy. I use Nginx Proxy Manager but anything will do
-  proxy: #You can remove this block if you are not planning to use a vpn
-    name: proxy
-    external: true
       
 services:
   #swag - nginx based proxy
@@ -74,8 +69,6 @@ services:
     volumes:
       - ${BASE_PATH}/radarr/config:/config
       - ${MEDIA_SHARE}:/share #Access to the entire /share
-    #networks: #Does not connect to overseer if you use NPM
-    #  - proxy
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -91,8 +84,6 @@ services:
     volumes:
       - ${BASE_PATH}/sonarr/config:/config
       - ${MEDIA_SHARE}:/share #Access to the entire /share
-    #networks: #Does not connect to overseer if you use NPM
-    #  - proxy
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -138,8 +129,6 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/prowlarr/config:/config
-    #networks:
-    #  - proxy
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -169,8 +158,6 @@ services:
     volumes:
       - ${BASE_PATH}/jellyseerr/config:/app/config
       - ${MEDIA_SHARE}:/share #Access to the entire ${BASE_PATH}
-    #networks:
-    #  - proxy
     ports:
       - 5055:5055
     restart: unless-stopped

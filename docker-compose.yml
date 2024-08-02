@@ -56,7 +56,7 @@ services:
     environment:
       - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}
     ports:
-      - 32400:32400
+      - 8096:8096
     devices:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:

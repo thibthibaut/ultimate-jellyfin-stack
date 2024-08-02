@@ -57,8 +57,7 @@ services:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
       - ${BASE_PATH}/jellyfin/config:/config
-      - ${MEDIA_SHARE}/media/tv:/tv
-      - ${MEDIA_SHARE}/media/movies:/movies
+      - ${MEDIA_SHARE}/media
     restart: unless-stopped
     labels:
       - swag=enable
@@ -73,14 +72,14 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/radarr/config:/config
-      - ${MEDIA_SHARE}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
+      - ${MEDIA_SHARE}:/share #Access to the entire /share
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
       - 7878:7878
     restart: unless-stopped
     
-  #Sonarr - used to find tv shows automatically
+  #Sonarr - used to find shows automatically
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
@@ -90,7 +89,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/sonarr/config:/config
-      - ${MEDIA_SHARE}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
+      - ${MEDIA_SHARE}:/share #Access to the entire /share
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -107,7 +106,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_SHARE}:/${BASE_PATH} 
+      - ${MEDIA_SHARE}:/share 
 
     ports:
       - 8787:8787
@@ -123,7 +122,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_SHARE}:/${BASE_PATH} 
+      - ${MEDIA_SHARE}:/
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -168,7 +167,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/jellyseerr/config:/config
-      - ${MEDIA_SHARE}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
+      - ${MEDIA_SHARE}:/share #Access to the entire ${BASE_PATH}
     #networks:
     #  - proxy
     ports:
@@ -203,7 +202,7 @@ services:
       - TORRENTING_PORT=8694 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
       - ${BASE_PATH}/qbittorent/config:/config
-      - ${MEDIA_SHARE}:/${BASE_PATH}
+      - ${MEDIA_SHARE}:/share
     restart: unless-stopped
 
   #Tdarr - to transcode videos from one format to another like x265 or H.265
@@ -235,7 +234,7 @@ services:
       - ${MEDIA_SHARE}:/media
       - /transcode_cache:/temp
     devices:
-     - /dev/dri:/dev/dri #Required for HW transcoding / QuickSync
+     - /dev/dri:/dev/dri #Required for HW transcoding /share QuickSync
      
   #Membarr - to invite users via discord
   #
@@ -262,7 +261,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/bazarr/config:/config
-      - ${MEDIA_SHARE}:/${BASE_PATH}
+      - ${MEDIA_SHARE}:/share
     ports:
       - 6767:6767
       
@@ -310,7 +309,7 @@ services:
     volumes:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
-      - ${MEDIA_SHARE}:/${BASE_PATH}
+      - ${MEDIA_SHARE}:/share
       #- ${BASE_PATH}/unpackerr/config:/config
     restart: always
     user: 1000:1000 #Needs to run as 1000
@@ -325,9 +324,9 @@ services:
       # Sonarr Config
       - UN_SONARR_0_URL=http://${SERVER_IP}:7878
       - UN_SONARR_0_API_KEY=${SONARR_KEY}
-      #- UN_SONARR_0_PATHS_0=/${BASE_PATH}/downloads/tv
+      #- UN_SONARR_0_PATHS_0=/${BASE_PATH}/downloads/shows
       - UN_SONARR_0_TIMEOUT=10s
-      #- UN_SONARR_0_PATHS_0=/${BASE_PATH}/downloads/tv
+      #- UN_SONARR_0_PATHS_0=/${BASE_PATH}/downloads/shows
       # Radarr Config
       - UN_RADARR_0_URL=http://${SERVER_IP}:8989
       - UN_RADARR_0_API_KEY=${RADARR_KEY}

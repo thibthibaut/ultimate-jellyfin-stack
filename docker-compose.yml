@@ -32,7 +32,6 @@ services:
       - ${BASE_PATH}/swag:/config
     ports:
       - 443:443
-      - 80:80
     restart: unless-stopped
 
   # docker-proxy for swag

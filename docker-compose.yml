@@ -18,6 +18,7 @@ services:
       - PGID=0
       - TZ=${TZ}
       - URL=the-bonfire.uk
+      - EMAIL=${EMAIL}
       - VALIDATION=dns
       - SUBDOMAINS=jellyfin
       - DNSPLUGIN=cloudflare

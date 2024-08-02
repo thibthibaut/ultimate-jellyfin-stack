@@ -46,8 +46,18 @@ services:
     volumes:
       - ${BASE_PATH}/swag:/config
     restart: unless-stopped
-      
-      
+
+  # docker-rpxoy for swag
+  dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy
+    container_name: dockerproxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=1
+      - POST=0
+    restart: unless-stopped    
+  
   #Jellyfin - used to display the media
   #This can also be replaced by Emby/Plex
   jellyfin:

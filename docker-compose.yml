@@ -32,7 +32,7 @@ services:
       - ${BASE_PATH}/swag:/config
     restart: unless-stopped
 
-  # docker-rpxoy for swag
+  # docker-proxy for swag
   dockerproxy:
     image: ghcr.io/tecnativa/docker-socket-proxy
     container_name: dockerproxy
@@ -59,6 +59,8 @@ services:
       - ${BASE_PATH}/jellyfin/config:/config
       - ${MEDIA_SHARE}/media
     restart: unless-stopped
+    networks:
+      - proxy
     labels:
       - swag=enable
     

@@ -61,8 +61,6 @@ services:
       - ${BASE_PATH}/jellyfin/config:/config
       - ${MEDIA_SHARE}:/media
     restart: unless-stopped
-    networks:
-      - proxy
     labels:
       - swag=enable
     
@@ -79,8 +77,6 @@ services:
       - ${MEDIA_SHARE}:/share #Access to the entire /share
     ports:
       - 7878:7878
-    networks:
-      - proxy
     restart: unless-stopped
     
   #Sonarr - used to find shows automatically
@@ -96,8 +92,6 @@ services:
       - ${MEDIA_SHARE}:/share #Access to the entire /share
     ports:
       - 8989:8989
-    networks:
-      - proxy
     restart: unless-stopped
   
   #Readarr - Used to download books
@@ -111,8 +105,6 @@ services:
     volumes:
       - ${BASE_PATH}/readarr/config:/config
       - ${MEDIA_SHARE}:/share 
-    networks:
-      - proxy
     ports:
       - 8787:8787
     restart: unless-stopped
@@ -128,8 +120,6 @@ services:
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
       - ${MEDIA_SHARE}:/share
-    networks:
-      - proxy
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -173,8 +163,6 @@ services:
     volumes:
       - ${BASE_PATH}/jellyseerr/config:/app/config
       - ${MEDIA_SHARE}:/share #Access to the entire ${BASE_PATH}
-    networks:
-      - proxy
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -267,8 +255,6 @@ services:
     volumes:
       - ${BASE_PATH}/bazarr/config:/config
       - ${MEDIA_SHARE}:/share
-    networks:
-      - proxy
     ports:
       - 6767:6767
       
@@ -351,8 +337,6 @@ services:
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADD}
       - SERVER_CITIES=Amsterdam
-    networks:
-      - proxy
 
   cabernet:
     image: ghcr.io/cabernetwork/cabernet:latest

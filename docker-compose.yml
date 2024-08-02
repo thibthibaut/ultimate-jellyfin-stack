@@ -122,7 +122,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_SHARE}:/
+      - ${MEDIA_SHARE}:/share
     ports:
       - 8686:8686
     restart: unless-stopped

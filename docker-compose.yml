@@ -26,7 +26,9 @@ services:
       - CF_ZONE_ID=${CLOUDFLARE_ZONE_ID}
       - CF_ACCOUNT_ID=${CLOUDFLARE_ACC_ID}
       - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
-
+      - CF_TUNNEL_NAME=jellyfin
+      - CF_TUNNEL_PASSWORD=iugv1k5guvf4kgh15vk4ghc5ku3o6gu3y4vg1o4uy159
+      - FILE__CF_TUNNEL_CONFIG=/config/tunnelconfig.yml
     volumes:
       - ${BASE_PATH}/swag/config:/config
     ports:

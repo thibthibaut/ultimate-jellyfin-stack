@@ -8,7 +8,7 @@ networks: #This is used if you have a reverse proxy. I use Nginx Proxy Manager b
 services:
   #swag - nginx based proxy
   swag:
-    image: lscr.io/linuxserver/pwndrop
+    image: lscr.io/linuxserver/swag
     container_name: swag
     environment:
       - PUID=${PUID}

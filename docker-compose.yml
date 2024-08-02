@@ -1,13 +1,5 @@
 version: "3.0"
 
-volumes:
-  share:
-    name: ${BASE_PATH}
-    external: true
-  home:
-    name: ${MEDIA_SHARE}
-    external: true
-
 networks: #This is used if you have a reverse proxy. I use Nginx Proxy Manager but anything will do
   proxy: #You can remove this block if you are not planning to use a vpn
     name: proxy
@@ -62,10 +54,12 @@ services:
     devices:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
-      - share/jellyfin/config:/config
-      - home/media/tv:/tv
-      - home/media/movies:/movies
+      - ${BASE_PATH}/jellyfin/config:/config
+      - ${MEDIA_PATH}/media/tv:/tv
+      - ${MEDIA_PATH}/media/movies:/movies
     restart: unless-stopped
+    labels:
+      - swag=enable
     
   #Radarr - used to find movies automatically
   radarr:
@@ -76,8 +70,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - share/radarr/config:/config
-      - home:/share #Access to the entire share
+      - ${BASE_PATH}/radarr/config:/config
+      - ${MEDIA_PATH}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -93,8 +87,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - share/sonarr/config:/config
-      - home:/share #Access to the entire share
+      - ${BASE_PATH}/sonarr/config:/config
+      - ${MEDIA_PATH}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -110,8 +104,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - share/readarr/config:/config
-      - home:/share 
+      - ${BASE_PATH}/readarr/config:/config
+      - ${MEDIA_PATH}:/${BASE_PATH} 
 
     ports:
       - 8787:8787
@@ -126,8 +120,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - share/lidarr/config:/config
-      - home:/share 
+      - ${BASE_PATH}/lidarr/config:/config
+      - ${MEDIA_PATH}:/${BASE_PATH} 
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -141,7 +135,7 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - share/prowlarr/config:/config
+      - ${BASE_PATH}/prowlarr/config:/config
     #networks:
     #  - proxy
     ports:
@@ -158,7 +152,7 @@ services:
       - PUID=${PUID}
       - PGID=${GUID}
     volumes:
-      - share/autobrr/config:/config
+      - ${BASE_PATH}/autobrr/config:/config
     ports:
       - 7474:7474
 
@@ -171,8 +165,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - share/jellyseerr/config:/config
-      - home:/share #Access to the entire share
+      - ${BASE_PATH}/jellyseerr/config:/config
+      - ${MEDIA_PATH}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
     #networks:
     #  - proxy
     ports:
@@ -206,8 +200,8 @@ services:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=8694 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
-      - share/qbittorent/config:/config
-      - home:/share
+      - ${BASE_PATH}/qbittorent/config:/config
+      - ${MEDIA_PATH}:/${BASE_PATH}
     restart: unless-stopped
 
   #Tdarr - to transcode videos from one format to another like x265 or H.265
@@ -233,10 +227,10 @@ services:
       - inContainer=true
       - ffmpegVersion=6
     volumes:
-      - share/tdarr/server:/app/server
-      - share/tdarr/configs:/app/configs
-      - share/tdarr/logs:/app/logs
-      - home:/media
+      - ${BASE_PATH}/tdarr/server:/app/server
+      - ${BASE_PATH}/tdarr/configs:/app/configs
+      - ${BASE_PATH}/tdarr/logs:/app/logs
+      - ${MEDIA_PATH}:/media
       - /transcode_cache:/temp
     devices:
      - /dev/dri:/dev/dri #Required for HW transcoding / QuickSync
@@ -253,7 +247,7 @@ services:
     environment:
       - token=${MEMBARR_TOKEN}
     volumes:
-      - share/membarr/config:/app/app/config
+      - ${BASE_PATH}/membarr/config:/app/app/config
       
   #Bazarr - for subtitles. Try to use SRT format if you can rather than PGS due to performance issues
   bazarr:
@@ -265,8 +259,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - share/bazarr/config:/config
-      - home:/share
+      - ${BASE_PATH}/bazarr/config:/config
+      - ${MEDIA_PATH}:/${BASE_PATH}
     ports:
       - 6767:6767
       
@@ -282,20 +276,20 @@ services:
     ports:
       - "2468:2468" # you'll need this for daemon mode only
     volumes:
-      - share/cross-seed/config:/config #To configure you have to manually nano the config file
-      - share/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
-      - home/cross-seed/current-cross-seeds:/cross-seeds # A place to temp save current cross seed .torrent files
-      #- home/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
+      - ${BASE_PATH}/cross-seed/config:/config #To configure you have to manually nano the config file
+      - ${BASE_PATH}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
+      - ${MEDIA_PATH}/cross-seed/current-cross-seeds:/cross-seeds # A place to temp save current cross seed .torrent files
+      #- ${MEDIA_PATH}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
     command: daemon # this enables the search mode, change to daemon to specifically run the daemon
     
-  #Wizarr - Allows you to create a share link that you can send to users to invite them to your media server
+  #Wizarr - Allows you to create a ${BASE_PATH} link that you can send to users to invite them to your media server
   wizarr:
     container_name: wizarr
     image: ghcr.io/wizarrrr/wizarr:latest
     ports:
       - 5690:5690
     volumes:
-      - share/wizarr/data/database:/data/database
+      - ${BASE_PATH}/wizarr/data/database:/data/database
       
   #Dozzle - Used to easily view logs of any container in real time!    
   dozzle:
@@ -314,8 +308,8 @@ services:
     volumes:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
-      - home:/share
-      #- share/unpackerr/config:/config
+      - ${MEDIA_PATH}:/${BASE_PATH}
+      #- ${BASE_PATH}/unpackerr/config:/config
     restart: always
     user: 1000:1000 #Needs to run as 1000
     # What you see below are defaults for this compose. You only need to modify things specific to your environment.
@@ -329,15 +323,15 @@ services:
       # Sonarr Config
       - UN_SONARR_0_URL=http://${SERVER_IP}:7878
       - UN_SONARR_0_API_KEY=${SONARR_KEY}
-      #- UN_SONARR_0_PATHS_0=/share/downloads/tv
+      #- UN_SONARR_0_PATHS_0=/${BASE_PATH}/downloads/tv
       - UN_SONARR_0_TIMEOUT=10s
-      #- UN_SONARR_0_PATHS_0=/share/downloads/tv
+      #- UN_SONARR_0_PATHS_0=/${BASE_PATH}/downloads/tv
       # Radarr Config
       - UN_RADARR_0_URL=http://${SERVER_IP}:8989
       - UN_RADARR_0_API_KEY=${RADARR_KEY}
-      #- UN_RADARR_0_PATHS_0=/share/downloads/movies
+      #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
       - UN_RADARR_0_TIMEOUT=10s
-      #- UN_RADARR_0_PATHS_0=/share/downloads/movies
+      #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
       
   gluetun:
     image: qmcgaw/gluetun
@@ -354,7 +348,7 @@ services:
     image: ghcr.io/cabernetwork/cabernet:latest
     container_name: cabernet
     volumes:
-      - share/cabernet:/app/plugins_ext
+      - ${BASE_PATH}/cabernet:/app/plugins_ext
     environment:
       - TZ=${TZ}
       - PUID=${PUID}

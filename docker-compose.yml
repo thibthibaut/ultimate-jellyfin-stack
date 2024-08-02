@@ -55,8 +55,8 @@ services:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
       - ${BASE_PATH}/jellyfin/config:/config
-      - ${MEDIA_PATH}/media/tv:/tv
-      - ${MEDIA_PATH}/media/movies:/movies
+      - ${MEDIA_SHARE}/media/tv:/tv
+      - ${MEDIA_SHARE}/media/movies:/movies
     restart: unless-stopped
     labels:
       - swag=enable
@@ -71,7 +71,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/radarr/config:/config
-      - ${MEDIA_PATH}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
+      - ${MEDIA_SHARE}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -88,7 +88,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/sonarr/config:/config
-      - ${MEDIA_PATH}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
+      - ${MEDIA_SHARE}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -105,7 +105,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_PATH}:/${BASE_PATH} 
+      - ${MEDIA_SHARE}:/${BASE_PATH} 
 
     ports:
       - 8787:8787
@@ -121,7 +121,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_PATH}:/${BASE_PATH} 
+      - ${MEDIA_SHARE}:/${BASE_PATH} 
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -166,7 +166,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/jellyseerr/config:/config
-      - ${MEDIA_PATH}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
+      - ${MEDIA_SHARE}:/${BASE_PATH} #Access to the entire ${BASE_PATH}
     #networks:
     #  - proxy
     ports:
@@ -201,7 +201,7 @@ services:
       - TORRENTING_PORT=8694 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
       - ${BASE_PATH}/qbittorent/config:/config
-      - ${MEDIA_PATH}:/${BASE_PATH}
+      - ${MEDIA_SHARE}:/${BASE_PATH}
     restart: unless-stopped
 
   #Tdarr - to transcode videos from one format to another like x265 or H.265
@@ -230,7 +230,7 @@ services:
       - ${BASE_PATH}/tdarr/server:/app/server
       - ${BASE_PATH}/tdarr/configs:/app/configs
       - ${BASE_PATH}/tdarr/logs:/app/logs
-      - ${MEDIA_PATH}:/media
+      - ${MEDIA_SHARE}:/media
       - /transcode_cache:/temp
     devices:
      - /dev/dri:/dev/dri #Required for HW transcoding / QuickSync
@@ -260,7 +260,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/bazarr/config:/config
-      - ${MEDIA_PATH}:/${BASE_PATH}
+      - ${MEDIA_SHARE}:/${BASE_PATH}
     ports:
       - 6767:6767
       
@@ -278,8 +278,8 @@ services:
     volumes:
       - ${BASE_PATH}/cross-seed/config:/config #To configure you have to manually nano the config file
       - ${BASE_PATH}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
-      - ${MEDIA_PATH}/cross-seed/current-cross-seeds:/cross-seeds # A place to temp save current cross seed .torrent files
-      #- ${MEDIA_PATH}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
+      - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/cross-seeds # A place to temp save current cross seed .torrent files
+      #- ${MEDIA_SHARE}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
     command: daemon # this enables the search mode, change to daemon to specifically run the daemon
     
   #Wizarr - Allows you to create a ${BASE_PATH} link that you can send to users to invite them to your media server
@@ -308,7 +308,7 @@ services:
     volumes:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
-      - ${MEDIA_PATH}:/${BASE_PATH}
+      - ${MEDIA_SHARE}:/${BASE_PATH}
       #- ${BASE_PATH}/unpackerr/config:/config
     restart: always
     user: 1000:1000 #Needs to run as 1000

@@ -62,9 +62,9 @@ services:
     devices:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
-      - ${BASE_PATH}/jellyfin/config:/config
-      - ${MEDIA_SHARE}/media/tv:/tv
-      - ${MEDIA_SHARE}/media/movies:/movies
+      - share/jellyfin/config:/config
+      - home/media/tv:/tv
+      - home/media/movies:/movies
     restart: unless-stopped
     
   #Radarr - used to find movies automatically
@@ -76,8 +76,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - ${BASE_PATH}/radarr/config:/config
-      - ${MEDIA_SHARE}:/share #Access to the entire share
+      - share/radarr/config:/config
+      - home:/share #Access to the entire share
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -93,8 +93,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - ${BASE_PATH}/sonarr/config:/config
-      - ${MEDIA_SHARE}:/share #Access to the entire share
+      - share/sonarr/config:/config
+      - home:/share #Access to the entire share
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -110,8 +110,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_SHARE}:/share 
+      - share/readarr/config:/config
+      - home:/share 
 
     ports:
       - 8787:8787
@@ -126,8 +126,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_SHARE}:/share 
+      - share/lidarr/config:/config
+      - home:/share 
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -141,7 +141,7 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - ${BASE_PATH}/prowlarr/config:/config
+      - share/prowlarr/config:/config
     #networks:
     #  - proxy
     ports:
@@ -158,7 +158,7 @@ services:
       - PUID=${PUID}
       - PGID=${GUID}
     volumes:
-      - ${BASE_PATH}/autobrr/config:/config
+      - share/autobrr/config:/config
     ports:
       - 7474:7474
 
@@ -171,8 +171,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - ${BASE_PATH}/jellyseerr/config:/config
-      - ${MEDIA_SHARE}:/share #Access to the entire share
+      - share/jellyseerr/config:/config
+      - home:/share #Access to the entire share
     #networks:
     #  - proxy
     ports:
@@ -206,8 +206,8 @@ services:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=8694 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
-      - ${BASE_PATH}/qbittorent/config:/config
-      - ${MEDIA_SHARE}:/share
+      - share/qbittorent/config:/config
+      - home:/share
     restart: unless-stopped
 
   #Tdarr - to transcode videos from one format to another like x265 or H.265
@@ -233,10 +233,10 @@ services:
       - inContainer=true
       - ffmpegVersion=6
     volumes:
-      - ${BASE_PATH}/tdarr/server:/app/server
-      - ${BASE_PATH}/tdarr/configs:/app/configs
-      - ${BASE_PATH}/tdarr/logs:/app/logs
-      - ${MEDIA_SHARE}:/media
+      - share/tdarr/server:/app/server
+      - share/tdarr/configs:/app/configs
+      - share/tdarr/logs:/app/logs
+      - home:/media
       - /transcode_cache:/temp
     devices:
      - /dev/dri:/dev/dri #Required for HW transcoding / QuickSync
@@ -253,7 +253,7 @@ services:
     environment:
       - token=${MEMBARR_TOKEN}
     volumes:
-      - ${BASE_PATH}/membarr/config:/app/app/config
+      - share/membarr/config:/app/app/config
       
   #Bazarr - for subtitles. Try to use SRT format if you can rather than PGS due to performance issues
   bazarr:
@@ -265,8 +265,8 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - ${BASE_PATH}/bazarr/config:/config
-      - ${MEDIA_SHARE}:/share
+      - share/bazarr/config:/config
+      - home:/share
     ports:
       - 6767:6767
       
@@ -282,10 +282,10 @@ services:
     ports:
       - "2468:2468" # you'll need this for daemon mode only
     volumes:
-      - ${BASE_PATH}/cross-seed/config:/config #To configure you have to manually nano the config file
-      - ${BASE_PATH}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
-      - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/cross-seeds # A place to temp save current cross seed .torrent files
-      #- ${MEDIA_SHARE}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
+      - share/cross-seed/config:/config #To configure you have to manually nano the config file
+      - share/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
+      - home/cross-seed/current-cross-seeds:/cross-seeds # A place to temp save current cross seed .torrent files
+      #- home/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
     command: daemon # this enables the search mode, change to daemon to specifically run the daemon
     
   #Wizarr - Allows you to create a share link that you can send to users to invite them to your media server
@@ -295,7 +295,7 @@ services:
     ports:
       - 5690:5690
     volumes:
-      - ${BASE_PATH}/wizarr/data/database:/data/database
+      - share/wizarr/data/database:/data/database
       
   #Dozzle - Used to easily view logs of any container in real time!    
   dozzle:
@@ -314,8 +314,8 @@ services:
     volumes:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
-      - ${MEDIA_SHARE}:/share
-      #- ${BASE_PATH}/unpackerr/config:/config
+      - home:/share
+      #- share/unpackerr/config:/config
     restart: always
     user: 1000:1000 #Needs to run as 1000
     # What you see below are defaults for this compose. You only need to modify things specific to your environment.
@@ -354,7 +354,7 @@ services:
     image: ghcr.io/cabernetwork/cabernet:latest
     container_name: cabernet
     volumes:
-      - ${BASE_PATH}/cabernet:/app/plugins_ext
+      - share/cabernet:/app/plugins_ext
     environment:
       - TZ=${TZ}
       - PUID=${PUID}

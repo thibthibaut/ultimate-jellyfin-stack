@@ -23,6 +23,8 @@ services:
       - ${BASE_PATH}/jellyfin/config:/config
       - ${MEDIA_SHARE}:/media
     restart: unless-stopped
+    networks:
+      - proxy
     labels:
       - swag=enable
     
@@ -39,6 +41,8 @@ services:
       - ${MEDIA_SHARE}:/share #Access to the entire /share
     ports:
       - 7878:7878
+    networks:
+      - proxy
     restart: unless-stopped
     
   #Sonarr - used to find shows automatically
@@ -54,6 +58,8 @@ services:
       - ${MEDIA_SHARE}:/share #Access to the entire /share
     ports:
       - 8989:8989
+    networks:
+      - proxy
     restart: unless-stopped
   
   #Readarr - Used to download books
@@ -69,6 +75,8 @@ services:
       - ${MEDIA_SHARE}:/share 
     ports:
       - 8787:8787
+    networks:
+      - proxy
     restart: unless-stopped
     
   #Lidarr - Used to download music 

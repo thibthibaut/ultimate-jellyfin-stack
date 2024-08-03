@@ -6,47 +6,8 @@ networks:
       external: true
       
 services:
-  #swag - nginx based proxy
-  swag:
-    image: lscr.io/linuxserver/swag
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - URL=the-bonfire.uk
-      - EMAIL=${EMAIL}
-      - VALIDATION=dns
-      - SUBDOMAINS=jellyfin
-      - DNSPLUGIN=cloudflare
-      - DOCKER_MODS=linuxserver/mods:swag-auto-proxy|linuxserver/mods:universal-docker|linuxserver/mods:universal-cloudflared
-      - DOCKER_HOST=dockerproxy
-      - CF_ZONE_ID=${CLOUDFLARE_ZONE_ID}
-      - CF_ACCOUNT_ID=${CLOUDFLARE_ACC_ID}
-      - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
-      - CF_TUNNEL_NAME=jellyfin
-      - CF_TUNNEL_PASSWORD=iugv1k5guvf4kgh15vk4ghc5ku3o6gu3y4vg1o4uy159
-      - FILE__CF_TUNNEL_CONFIG=/config/tunnelconfig.yml
-    volumes:
-      - ${BASE_PATH}/swag/config:/config
-    ports:
-      - 443:443
-      - 80:80
-    restart: unless-stopped
+  # REVERSE PROXY IS IN OTHER DOCKER COMPOSE STACK
 
-  # docker-proxy for swag
-  dockerproxy:
-    image: ghcr.io/tecnativa/docker-socket-proxy
-    container_name: dockerproxy
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      - CONTAINERS=1
-      - POST=0
-    restart: unless-stopped    
-  
   #Jellyfin - used to display the media
   #This can also be replaced by Emby/Plex
   jellyfin:

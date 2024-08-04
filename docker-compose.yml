@@ -313,7 +313,7 @@ services:
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADD}
       - SERVER_CITIES=Amsterdam
     ports:
-      - "2648:2648/tcp" # cross-seed
+      - 2648:2648 # cross-seed
       - 8080:8080 # qBit
       - 8694:8694 # qBit
 

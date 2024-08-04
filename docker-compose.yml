@@ -44,6 +44,7 @@ services:
       - 7878:7878
     networks:
       - proxy
+      - jellyfin_default
     restart: unless-stopped
     
   #Sonarr - used to find shows automatically
@@ -61,6 +62,7 @@ services:
       - 8989:8989
     networks:
       - proxy
+      - jellyfin_default
     restart: unless-stopped
   
   #Readarr - Used to download books
@@ -78,6 +80,7 @@ services:
       - 8787:8787
     networks:
       - proxy
+      - jellyfin_default
     restart: unless-stopped
     
   #Lidarr - Used to download music 
@@ -109,6 +112,7 @@ services:
       - 9696:9696
     networks:
       - proxy
+      - jellyfin_default
     restart: unless-stopped
     
   #Autobrr - used to grab torrents using the trackers IRC channel - Increases seeding due to grabbing content before RSS feed

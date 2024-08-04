@@ -299,7 +299,7 @@ services:
       #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
       
   gluetun:
-    image: qmcgaw/gluetun
+    image: qmcgaw/gluetun:latest
     cap_add:
       - NET_ADMIN
     environment:

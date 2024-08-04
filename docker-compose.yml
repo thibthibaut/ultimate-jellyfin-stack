@@ -302,6 +302,8 @@ services:
       
   gluetun:
     image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    network_mode: host
     cap_add:
       - NET_ADMIN
     environment:

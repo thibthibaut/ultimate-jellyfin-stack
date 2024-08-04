@@ -107,6 +107,8 @@ services:
       - ${BASE_PATH}/prowlarr/config:/config
     ports:
       - 9696:9696
+    networks:
+      - proxy
     restart: unless-stopped
     
   #Autobrr - used to grab torrents using the trackers IRC channel - Increases seeding due to grabbing content before RSS feed

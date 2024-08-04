@@ -22,6 +22,7 @@ services:
     volumes:
       - ${BASE_PATH}/jellyfin/config:/config
       - ${MEDIA_SHARE}:/media
+      - ${BASE_PATH}/swag/config/jeys/letsencrypt:/certificates
     restart: unless-stopped
     networks:
       - proxy

@@ -2,8 +2,10 @@ version: "3.0"
 
 networks:
   proxy:
-      name: proxy
-      external: true
+    name: proxy
+    external: true
+  jellyfin_default:
+    external: true
       
 services:
   # REVERSE PROXY IS IN OTHER DOCKER COMPOSE STACK

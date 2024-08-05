@@ -245,6 +245,8 @@ services:
       - ${MEDIA_SHARE}:/share
     ports:
       - 6767:6767
+    networks:
+      - starr
       
   #Cross Seed - used to take torrents from one tracker and seed them on another without leeching first. Increases ratio
   #
@@ -313,6 +315,8 @@ services:
       #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
       - UN_RADARR_0_TIMEOUT=10s
       #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
+    networks:
+      - starr
       
   gluetun:
     image: qmcgaw/gluetun:latest

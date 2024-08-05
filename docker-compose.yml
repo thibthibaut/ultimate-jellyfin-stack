@@ -49,6 +49,8 @@ services:
       - proxy
       - starr
     restart: unless-stopped
+    labels:
+      - swag=enable
     
   #Sonarr - used to find shows automatically
   sonarr:
@@ -67,6 +69,8 @@ services:
       - proxy
       - starr
     restart: unless-stopped
+    labels:
+      - swag=enable
   
   #Readarr - Used to download books
   readarr:
@@ -85,6 +89,8 @@ services:
       - proxy
       - starr
     restart: unless-stopped
+    labels:
+      - swag=enable
     
   #Lidarr - Used to download music 
   lidarr:
@@ -103,6 +109,8 @@ services:
       - proxy
       - starr
     restart: unless-stopped
+    labels:
+      - swag=enable
     
   #Prowlarr - manages your Sonarr, Radarr and download client
   prowlarr:
@@ -120,6 +128,8 @@ services:
       - proxy
       - starr
     restart: unless-stopped
+    labels:
+      - swag=enable
     
   #Autobrr - used to grab torrents using the trackers IRC channel - Increases seeding due to grabbing content before RSS feed
   autobrr:
@@ -137,6 +147,8 @@ services:
     networks:
       - proxy
       - starr
+    labels:
+      - swag=enable
 
   #jellyseer - allows users to request media on their own
   jellyseerr:
@@ -155,6 +167,8 @@ services:
     ports:
       - 5055:5055
     restart: unless-stopped
+    labels:
+      - swag=enable
     
   #Flaresolerr - Used as a proxy server to bypass Cloudflare and DDoS-GUARD protection.
   flaresolverr:
@@ -335,6 +349,8 @@ services:
       - 6077:6077/tcp # cabernet
     networks:
       - starr
+    labels:
+      - swag=enable
 
   cabernet:
     image: ghcr.io/cabernetwork/cabernet:latest

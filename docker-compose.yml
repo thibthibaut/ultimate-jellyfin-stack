@@ -254,7 +254,7 @@ services:
   #
   #This is fairly advanced but can be removed if you don't think you will need it. Some trackers also don't allow this
   cross-seed:
-    image: ghcr.io/cross-seed/cross-seed
+    image: ghcr.io/cross-seed/cross-seed:latest
     container_name: cross-seed
     network_mode: "service:gluetun"
     environment:
@@ -287,7 +287,7 @@ services:
     
   #Unpacker - Used to unzip zipped files
   unpackerr:
-    image: golift/unpackerr
+    image: golift/unpackerr:latest
     container_name: unpackerr
 
     volumes:

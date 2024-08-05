@@ -2,7 +2,6 @@ version: "3.0"
 
 networks:
   proxy:
-    name: proxy
     external: true
   jellyfin_default:
     external: true
@@ -321,18 +320,17 @@ services:
       - 2648:2648/tcp # cross-seed
       - 8080:8080/tcp # qBit
       - 8694:8694/tcp # qBit
+      - 5004:5004/tcp # cabernet
+      - 6077:6077/tcp # cabernet
 
   cabernet:
     image: ghcr.io/cabernetwork/cabernet:latest
     container_name: cabernet
+    network_mode: "service:gluetun"
     volumes:
       - ${BASE_PATH}/cabernet:/app/plugins_ext
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
-    networks:
-      - proxy
-    ports:
-      - 5004:5004
-      - 6077:6077
+

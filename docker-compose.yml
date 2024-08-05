@@ -333,6 +333,8 @@ services:
       - 8694:8694/tcp # qBit
       - 5004:5004/tcp # cabernet
       - 6077:6077/tcp # cabernet
+    networks:
+      - starr
 
   cabernet:
     image: ghcr.io/cabernetwork/cabernet:latest

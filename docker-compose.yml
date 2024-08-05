@@ -333,6 +333,7 @@ services:
       - 6077:6077/tcp # cabernet
     networks:
       - starr
+      - proxy
 
   cabernet:
     image: ghcr.io/cabernetwork/cabernet:latest

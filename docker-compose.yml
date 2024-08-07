@@ -165,6 +165,7 @@ services:
       - LOG_HTML=false
       - CAPTCHA_SOLVER=none
       - TZ=${TZ}
+      - LANG=en_GB
     ports:
       - 8191:8191/tcp # flaresolverr
     restart: unless-stopped

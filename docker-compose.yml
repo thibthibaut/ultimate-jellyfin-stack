@@ -220,20 +220,6 @@ services:
       - /transcode_cache:/temp
     devices:
      - /dev/dri:/dev/dri #Required for HW transcoding /share QuickSync
-     
-  #Membarr - to invite users via discord
-  #
-  #Can be configured so that when a jellyfin member invites an outside user to a discord channel they are auto invited to jellyfin
-  #
-  #Feel free to remove this container if you want to manually invite everyone yourself
-  membarr:
-    container_name: membarr
-    image: yoruio/membarr:latest
-    restart: unless-stopped
-    environment:
-      - token=${MEMBARR_TOKEN}
-    volumes:
-      - ${BASE_PATH}/membarr/config:/app/app/config
       
   #Bazarr - for subtitles. Try to use SRT format if you can rather than PGS due to performance issues
   bazarr:

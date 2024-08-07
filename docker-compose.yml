@@ -163,7 +163,7 @@ services:
     environment:
       - LOG_LEVEL=info
       - LOG_HTML=false
-      - CAPTCHA_SOLVER=hcaptcha-solver
+      - CAPTCHA_SOLVER=none
       - TZ=${TZ}
     ports:
       - 8191:8191/tcp # flaresolverr

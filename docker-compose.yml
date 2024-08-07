@@ -335,6 +335,7 @@ services:
       - 8694:8694/tcp # qBit
       - 5004:5004/tcp # cabernet
       - 6077:6077/tcp # cabernet
+      - 8191:8191/tcp # flaresolverr
     networks:
       - starr
       - proxy

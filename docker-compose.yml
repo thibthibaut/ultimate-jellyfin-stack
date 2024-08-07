@@ -309,6 +309,17 @@ services:
       #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
     networks:
       - starr
+
+  cabernet:
+    image: ghcr.io/cabernetwork/cabernet:latest
+    container_name: cabernet
+    network_mode: "service:gluetun"
+    volumes:
+      - ${BASE_PATH}/cabernet:/app/plugins_ext
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
       
   gluetun:
     image: qmcgaw/gluetun:latest
@@ -326,19 +337,8 @@ services:
       - 8080:8080/tcp # qBit
       - 8694:8694/tcp # qBit
       - 5004:5004/tcp # cabernet
-      - 6077:6077/tcp # cabernet
+      - 2806:2806 # cabernet
     networks:
       - starr
       - proxy
-
-  cabernet:
-    image: ghcr.io/cabernetwork/cabernet:latest
-    container_name: cabernet
-    network_mode: "service:gluetun"
-    volumes:
-      - ${BASE_PATH}/cabernet:/app/plugins_ext
-    environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
 

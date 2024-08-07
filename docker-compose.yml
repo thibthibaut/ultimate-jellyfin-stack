@@ -30,6 +30,7 @@ services:
     restart: unless-stopped
     networks:
       - proxy
+      - starr
     
   #Radarr - used to find movies automatically
   radarr:

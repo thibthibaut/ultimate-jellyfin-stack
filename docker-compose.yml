@@ -160,12 +160,13 @@ services:
     # DockerHub mirror flaresolverr/flaresolverr:latest
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
-    network_mode: "service:gluetun"
     environment:
       - LOG_LEVEL=info
       - LOG_HTML=false
       - CAPTCHA_SOLVER=none
       - TZ=${TZ}
+    ports:
+      - 8191:8191/tcp # flaresolverr
     restart: unless-stopped
       
   #Qbittorent - torrenting software
@@ -335,7 +336,6 @@ services:
       - 8694:8694/tcp # qBit
       - 5004:5004/tcp # cabernet
       - 6077:6077/tcp # cabernet
-      - 8191:8191/tcp # flaresolverr
     networks:
       - starr
       - proxy

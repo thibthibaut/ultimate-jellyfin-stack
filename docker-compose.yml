@@ -20,6 +20,7 @@ services:
       - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}
     ports:
       - 8096:8096
+      - 8920:8920
     devices:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:

@@ -48,8 +48,8 @@ Keep in mind some variable names have changed since this screenshot was taken
 
   
 File location examples:
-- {MEDIA_SHARE} = /share
-- {BASE_PATH} = /home/username/docker
+- {MEDIA_SHARE} = ~/Jellyfin/share
+- {BASE_PATH} = ~/Jellyfin/home
 
 To allow hardlinking to work (which you will definitely want!) you will have to use the same root folder in all of your container path. In this example we use "/share", so in the container it will look like "/share/downloads/tv"
 
@@ -66,9 +66,9 @@ An example of my folder structure:
   
 Anytime you reference your media folder in a container you want the path to look like /share/media/tv instead of /tv like a lot of the default guides say, if you do end up mapping the path as /tv hardlinking will not work
 
-## Possible Additions
+## Recommendations
 
-1. Organizr - Creates a lovely dashboard to help navigate to all of your apps
-2. Portainer - Docker GUI
-3. UptimeKuma - Gives you the ability to monitor your services
+1. Get familiar with reverse proxies
+2. Install portainer to manage and monitor containers
+3. Use Cloudflare tunnels
 

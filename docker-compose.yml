@@ -318,7 +318,7 @@ services:
       - VPN_TYPE=wireguard
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADD}
-      - SERVER_CITIES=Amsterdam
+      - SERVER_CITIES=${VPN_SERVER_CITIES}
     ports:
       - 2648:2648/tcp # cross-seed
       - 8080:8080/tcp # qBit

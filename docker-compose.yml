@@ -25,7 +25,7 @@ services:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
       - ${BASE_PATH}/jellyfin/config:/config
-      - ${MEDIA_SHARE}:/media/downloads
+      - ${MEDIA_SHARE}:/media
       - ${BASE_PATH}/swag/config/keys/letsencrypt:/certificates
     restart: unless-stopped
     networks:

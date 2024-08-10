@@ -18,6 +18,8 @@ services:
     container_name: jellyfin
     environment:
       - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}
+      - PUID=${PUID}
+      - PGID=${PGID}
     ports:
       - 8096:8096
       - 8920:8920

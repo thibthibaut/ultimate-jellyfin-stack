@@ -14,7 +14,6 @@ This Plex Stack includes the following services:
 - **Gluetun:** VPN container with WireGuard support for secure browsing.
 - **Qbittorrent:** BitTorrent client with VPN support.
 - **Tdarr:** Pre-transcodes your media to decrease file sizes
-- **De-unhealth:** Monitors VPN health and restarts Qbittorrent if necessary.
 - **Membarr:** Invite users to your Jellyfin via discord
 - **Bazarr:** Subtitle management for movies and TV shows.
 - **Autobrr:** Used to grab torrents immediately as they are released.

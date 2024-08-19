@@ -267,6 +267,9 @@ services:
       - 5690:5690
     volumes:
       - ${BASE_PATH}/wizarr/data/database:/data/database
+    networks:
+      - proxy
+      - starr
       
   #Dozzle - Used to easily view logs of any container in real time!    
   dozzle:

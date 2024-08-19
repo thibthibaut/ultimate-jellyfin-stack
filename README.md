@@ -9,16 +9,16 @@ This Plex Stack includes the following services:
 - **Jellyfin:** Media server for streaming movies and TV shows.
 - **Radarr:** Movie management and automation.
 - **Sonarr:** TV show management and automation.
+- **Readarr:** Used to grab books and audiobooks.
+- **Lidarr:** Used to grab music.
+- **Kapowarr** Used to grab comics.
 - **Prowlarr:** Indexer manager for Radarr and Sonarr.
 - **Jellyseerr:** Request management and monitoring for Jellyfin.
 - **Gluetun:** VPN container with WireGuard support for secure browsing.
 - **Qbittorrent:** BitTorrent client with VPN support.
 - **Tdarr:** Pre-transcodes your media to decrease file sizes
-- **Membarr:** Invite users to your Jellyfin via discord
 - **Bazarr:** Subtitle management for movies and TV shows.
 - **Autobrr:** Used to grab torrents immediately as they are released.
-- **Readarr:** Used to grab books and audiobooks.
-- **Lidarr:** Used to grab music.
 - **Flaresolverr:** Used as a proxy server to bypass Cloudflare and DDoS-GUARD protection.
 - **Dozzle:** Used to view the logs of any container.
 - **Wizarr:** Used to create links that can be sent to users so they can be invited to your media server.

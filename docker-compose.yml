@@ -110,15 +110,12 @@ services:
   kapowarr:
     image: 'mrcas/kapowarr:latest'
     container_name: kapowarr
+    network_mode: "service:gluetun"
     volumes:
       - ${BASE_PATH}/kapowarr/config:/app/db
       - ${MEDIA_PATH}/temp_downloads:/app/temp_downloads
       - ${MEDIA_PATH}/media/comics:/comics-1
-    ports:
-      - 5656:5656
-    networks:
-      - proxy
-      - starr
+    restart: unless-stopped
     
   #Prowlarr - manages your Sonarr, Radarr and download client
   prowlarr:
@@ -359,6 +356,7 @@ services:
       - 2648:2648/tcp # cross-seed
       - 8080:8080/tcp # qBit
       - 8694:8694/tcp # qBit
+      - 5656:5656/tcp # kapowarr
     networks:
       - starr
       - proxy

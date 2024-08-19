@@ -111,6 +111,10 @@ services:
     image: 'mrcas/kapowarr:latest'
     container_name: kapowarr
     network_mode: "service:gluetun"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/kapowarr/config:/app/db
       - ${MEDIA_PATH}/temp_downloads:/app/temp_downloads

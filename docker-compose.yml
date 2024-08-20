@@ -117,8 +117,8 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/kapowarr/config:/app/db
-      - ${MEDIA_PATH}/temp_downloads:/app/temp_downloads
-      - ${MEDIA_PATH}/media/comics:/comics-1
+      - ${MEDIA_SHARE}/temp_downloads:/app/temp_downloads
+      - ${MEDIA_SHARE}:/data
     restart: unless-stopped
     
   #Prowlarr - manages your Sonarr, Radarr and download client

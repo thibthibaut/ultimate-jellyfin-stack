@@ -340,8 +340,6 @@ services:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
-    networks:
-      - starr
       
   gluetun:
     image: qmcgaw/gluetun:latest
@@ -360,7 +358,7 @@ services:
       - 8694:8694/tcp # qBit
       - 5656:5656/tcp # kapowarr
       - 5004:5004 # cabernet
-      - 2806:2806 # cabernet
+      - 6007:6007 # cabernet
     networks:
       - starr
       - proxy

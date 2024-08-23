@@ -357,8 +357,8 @@ services:
       - 8080:8080/tcp # qBit
       - 8694:8694/tcp # qBit
       - 5656:5656/tcp # kapowarr
-      - 5004:5004 # cabernet
-      - 6077:6077 # cabernet
+      - 5004:5004/tcp # cabernet
+      - 6077:6077/tcp # cabernet
     networks:
       - starr
       - proxy

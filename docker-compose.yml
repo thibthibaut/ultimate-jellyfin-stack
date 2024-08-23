@@ -329,21 +329,6 @@ services:
       #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
     networks:
       - starr
-
-  cabernet:
-    image: ghcr.io/cabernetwork/cabernet:latest
-    container_name: cabernet
-    volumes:
-      - ${BASE_PATH}/cabernet:/app/plugins_ext
-    environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
-    ports:
-      - 5004:5004 # cabernet
-      - 2806:2806 # cabernet
-    networks:
-      - starr
       
   gluetun:
     image: qmcgaw/gluetun:latest

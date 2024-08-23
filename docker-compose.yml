@@ -335,7 +335,8 @@ services:
     container_name: cabernet
     network_mode: "service:gluetun"
     volumes:
-      - ${BASE_PATH}/cabernet:/app/plugins_ext
+      - ${BASE_PATH}/cabernet/extensions:/app/plugins_ext
+      - ${BASE_PATH}/cabernet/data:/app/data
     environment:
       - TZ=${TZ}
       - PUID=${PUID}

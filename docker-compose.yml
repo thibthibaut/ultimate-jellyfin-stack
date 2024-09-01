@@ -179,14 +179,13 @@ services:
     #image: ghcr.io/flaresolverr/flaresolverr:latest
     image: alexfozor/flaresolverr:pr-1300
     container_name: flaresolverr
+    network_mode: "service:gluetun"
     environment:
       - LOG_LEVEL=debug
       - LOG_HTML=false
       - CAPTCHA_SOLVER=none
       - TZ=${TZ}
       - LANG=en_GB
-    ports:
-      - 8191:8191/tcp # flaresolverr
     restart: unless-stopped
     networks:
       - starr
@@ -360,6 +359,7 @@ services:
       - 5656:5656/tcp # kapowarr
       - 5004:5004/tcp # cabernet
       - 6077:6077/tcp # cabernet
+      - 8191:8191/tcp # flaresolverr
     networks:
       - starr
       - proxy

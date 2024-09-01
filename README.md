@@ -23,27 +23,20 @@ This Plex Stack includes the following services:
 - **Dozzle:** Used to view the logs of any container.
 - **Wizarr:** Used to create links that can be sent to users so they can be invited to your media server.
 
-<img width="353" alt="image" src="https://github.com/DonMcD/ultimate-plex-stack/assets/90471623/a9b8faf8-072e-4fb3-ac18-2ffd29d0f760">
-
-
 ## Dependencies
 
 1. Linux
 2. Docker / Docker Compose
 3. OPTIONAL: Portainer - Docker GUI
 
-## How to Use
-
-1. Clone this repository / Copy the docker-compose.yml file:
-
-   ```bash
-   git clone https://github.com/Wh1rr/ultimate-jellyfin-stack.git
-2. Fill in the required details such as the environment variables
-3. OPTIONAL: Setup a reverse proxy so you can use radarr.my-domain.com instead of 192.168.1.10 to access each of your apps
+## How to Use - Using portainer
+1. Create a new stack using the Repository build method
+2. Add this link `https://github.com/Wh1rr/ultimate-jellyfin-stack/blob/main/docker-compose.yml` as repository URL
+3. Add your environment variables using the below examples.
 
 ## Example of Environment variables in Portainer
 Keep in mind some variable names have changed since this screenshot was taken
-<img width="657" alt="image" src="https://github.com/DonMcD/ultimate-plex-stack/assets/90471623/9a614eb0-8ff7-4eb9-b154-61c08cd595e9">
+![jellyfin-stack](https://github.com/user-attachments/assets/1b984a6f-df7f-46c9-9dd1-54c62b6854a6)
 
   
 File location examples:
@@ -52,16 +45,21 @@ File location examples:
 
 To allow hardlinking to work (which you will definitely want!) you will have to use the same root folder in all of your container path. In this example we use "/share", so in the container it will look like "/share/downloads/tv"
 
-An example of my folder structure:  
+An example folder structure:  
 ![image](https://github.com/DonMcD/ultimate-plex-stack/assets/90471623/2003ac26-a929-4ff6-ad67-e35fc51fb51a)
   
 - Feel free to expand your folders to also include "books" or "music" as you need for your setup
   
-
-  
-1. In Radarr you will want to set your category to "movies", this will create the movies folder
-2. In Sonarr you will want to set your category to "tv", this will create the tv folder
-
+## Starr apps
+Setting up the starr apps might be a bit confusing the first time, but to keep it simple:
+1. Prowlarr manages the indexes for all *some* starr apps (radarr and sonarr)
+2. The following starr apps make use of the download client (qBittorent) to download their respective content type:
+   1. Radarr - Movies
+   2. Sonarr - TV Shows
+   3. Lidarr - Music
+   4. Readarr - Books
+   5. Kapowarr - Comics
+3. Jellyseer is a platform which combines the request system in radarr and sonarr to make a nice UI/UX to find and auto download the content.
   
 Anytime you reference your media folder in a container you want the path to look like /share/media/tv instead of /tv like a lot of the default guides say, if you do end up mapping the path as /tv hardlinking will not work
 

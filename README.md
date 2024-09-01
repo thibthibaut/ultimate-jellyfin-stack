@@ -23,6 +23,8 @@ This Plex Stack includes the following services:
 - **Dozzle:** Used to view the logs of any container.
 - **Wizarr:** Used to create links that can be sent to users so they can be invited to your media server.
 
+![containers](https://github.com/user-attachments/assets/855014b1-2716-4370-975d-a02564df881e)
+
 ## Dependencies
 
 1. Linux

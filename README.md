@@ -54,7 +54,7 @@ An example folder structure:
   
 ## Starr apps
 Setting up the starr apps might be a bit confusing the first time, but to keep it simple:
-1. Prowlarr manages the indexes for all *some* starr apps (radarr and sonarr)
+1. Prowlarr manages the indexes for *some* starr apps (radarr and sonarr)
 2. The following starr apps make use of the download client (qBittorent) to download their respective content type:
    1. Radarr - Movies
    2. Sonarr - TV Shows

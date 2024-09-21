@@ -31,7 +31,7 @@ services:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
       - ${BASE_PATH}/jellyfin/config:/config
-      - ${MEDIA_SHARE}/media:/media
+      - nas_media:/media
       - ${BASE_PATH}/swag/config/keys/letsencrypt:/certificates
     restart: unless-stopped
     networks:
@@ -49,6 +49,7 @@ services:
     volumes:
       - ${BASE_PATH}/radarr/config:/config
       - ${MEDIA_SHARE}:/data #Access to the entire /share
+      - nas_media:/data/media
     ports:
       - 7878:7878
     networks:
@@ -67,6 +68,7 @@ services:
     volumes:
       - ${BASE_PATH}/sonarr/config:/config
       - ${MEDIA_SHARE}:/data #Access to the entire /share
+      - nas_media:/data/media
     ports:
       - 8989:8989
     networks:
@@ -84,7 +86,8 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_SHARE}:/data 
+      - ${MEDIA_SHARE}:/data
+      - nas_media:/data/media
     ports:
       - 8787:8787
     networks:
@@ -103,6 +106,7 @@ services:
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
       - ${MEDIA_SHARE}:/data
+      - nas_media:/data/media
     ports:
       - 8686:8686
     networks:
@@ -123,6 +127,7 @@ services:
       - ${BASE_PATH}/kapowarr/config:/app/db
       - ${MEDIA_SHARE}/temp_downloads:/app/temp_downloads
       - ${MEDIA_SHARE}:/data
+      - nas_media:/data/media
     restart: unless-stopped
     
   #Prowlarr - manages your Sonarr, Radarr and download client
@@ -170,6 +175,7 @@ services:
     volumes:
       - ${BASE_PATH}/jellyseerr/config:/app/config
       - ${MEDIA_SHARE}:/data #Access to the entire ${BASE_PATH}
+      - nas_media:/data/media
     networks:
       - proxy
       - starr
@@ -236,7 +242,7 @@ services:
       - ${BASE_PATH}/tdarr/server:/app/server
       - ${BASE_PATH}/tdarr/configs:/app/configs
       - ${BASE_PATH}/tdarr/logs:/app/logs
-      - ${MEDIA_SHARE}/media:/data/media
+      - nas_media:/data/media
       - /transcode_cache:/temp
     devices:
      - /dev/dri:/dev/dri #Required for HW transcoding /share QuickSync
@@ -252,7 +258,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/bazarr/config:/config
-      - ${MEDIA_SHARE}/media:/data/media
+      - nas_media:/data/media
     ports:
       - 6767:6767
     networks:
@@ -305,6 +311,7 @@ services:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
       - ${MEDIA_SHARE}:/data
+      - nas_media:/data/media
       #- ${BASE_PATH}/unpackerr/config:/config
     restart: always
     user: 1000:1000 #Needs to run as 1000

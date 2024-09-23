@@ -186,7 +186,7 @@ services:
   #Flaresolerr - Used as a proxy server to bypass Cloudflare and DDoS-GUARD protection.
   flaresolverr:
     # DockerHub mirror flaresolverr/flaresolverr:latest
-    image: ghcr.io/flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:pr-1282
     container_name: flaresolverr
     network_mode: "service:gluetun"
     environment:

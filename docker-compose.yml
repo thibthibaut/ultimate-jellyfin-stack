@@ -438,3 +438,6 @@ services:
      QBITTORRENT_URL: http://gluetun:8080
      QBITTORRENT_USERNAME: $QBIT_USER
      QBITTORRENT_PASSWORD: $QBIT_PASS
+    networks:
+      - starr
+      - proxy

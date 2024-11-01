@@ -391,9 +391,9 @@ services:
     container_name: decluttarr
     restart: always
     environment:
-     - TZ=${TZ}
-     - PUID=${PUID}
-     - PGID=${PGID}
+     TZ: ${TZ}
+     PUID: ${PUID}
+     PGID: ${PGID}
      ## General
      # TEST_RUN=True
      # SSL_VERIFICATION=False

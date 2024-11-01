@@ -391,9 +391,9 @@ services:
     container_name: decluttarr
     restart: always
     environment:
-     TZ=Europe/London
-     PUID=1000
-     PGID=1000
+     TZ=${TZ}
+     PUID=${PUID}
+     PGID=${PGID}
 
      ## General
      # TEST_RUN=True

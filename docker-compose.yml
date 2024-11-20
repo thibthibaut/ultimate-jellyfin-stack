@@ -11,6 +11,8 @@ networks:
 volumes:
   nas_media:
     external: true
+  nas_torrents:
+    external: true
       
 services:
   # REVERSE PROXY IS IN OTHER DOCKER COMPOSE STACK
@@ -216,7 +218,8 @@ services:
       - TORRENTING_PORT=8694 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
       - ${BASE_PATH}/qbittorent/config:/config
-      - ${MEDIA_SHARE}/torrents:/data/torrents
+      - nas_torrents:/data/torrents
+      # - ${MEDIA_SHARE}/torrents:/data/torrents
     restart: unless-stopped
 
   #Tdarr - to transcode videos from one format to another like x265 or H.265
@@ -280,7 +283,12 @@ services:
     volumes:
       - ${BASE_PATH}/cross-seed/config:/config #To configure you have to manually nano the config file
       - ${BASE_PATH}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
-      - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/data/cross-seeds # A place to temp save current cross seed .torrent files
+      - type: volume
+        source: nas_torrents
+        target: /data/cross-seeds
+        volume:
+          subpath: cross-seed
+      # - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/data/cross-seeds # A place to temp save current cross seed .torrent files
       #- ${MEDIA_SHARE}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
     command: daemon # this enables the search mode, change to daemon to specifically run the daemon
     

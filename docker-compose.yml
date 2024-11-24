@@ -118,7 +118,7 @@ services:
     volumes:
       - ${BASE_PATH}/kapowarr/config:/app/db
       - ${MEDIA_SHARE}/temp_downloads:/app/temp_downloads
-      - ${MEDIA_SHARE}:/data
+      - ${MEDIA_SHARE}/media:/data
     restart: unless-stopped
     
   #Prowlarr - manages your Sonarr, Radarr and download client

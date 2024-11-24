@@ -7,12 +7,6 @@ networks:
     external: true
   starr:
     external: true
-
-volumes:
-  nas_media:
-    external: true
-  nas_torrents:
-    external: true
       
 services:
   # REVERSE PROXY IS IN OTHER DOCKER COMPOSE STACK
@@ -33,7 +27,7 @@ services:
      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
       - ${BASE_PATH}/jellyfin/config:/config
-      - nas_media:/media
+      - ${MEDIA_SHARE}/media:/media
       - ${BASE_PATH}/swag/config/keys/letsencrypt:/certificates
     restart: unless-stopped
     networks:
@@ -50,8 +44,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/radarr/config:/config
-      - ${MEDIA_SHARE}:/data #Access to the entire /share
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data #Access to the entire /media
     ports:
       - 7878:7878
     networks:
@@ -69,8 +62,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/sonarr/config:/config
-      - ${MEDIA_SHARE}:/data #Access to the entire /share
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data #Access to the entire /media
     ports:
       - 8989:8989
     networks:
@@ -88,8 +80,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_SHARE}:/data
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data
     ports:
       - 8787:8787
     networks:
@@ -107,8 +98,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_SHARE}:/data
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data
     ports:
       - 8686:8686
     networks:
@@ -128,8 +118,7 @@ services:
     volumes:
       - ${BASE_PATH}/kapowarr/config:/app/db
       - ${MEDIA_SHARE}/temp_downloads:/app/temp_downloads
-      - ${MEDIA_SHARE}:/data
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data
     restart: unless-stopped
     
   #Prowlarr - manages your Sonarr, Radarr and download client
@@ -176,8 +165,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/jellyseerr/config:/app/config
-      - ${MEDIA_SHARE}:/data #Access to the entire ${BASE_PATH}
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data #Access to the entire ${BASE_PATH}
     networks:
       - proxy
       - starr
@@ -218,8 +206,7 @@ services:
       - TORRENTING_PORT=8694 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
       - ${BASE_PATH}/qbittorent/config:/config
-      - nas_torrents:/data/torrents
-      # - ${MEDIA_SHARE}/torrents:/data/torrents
+      - ${MEDIA_SHARE}/torrents:/data/torrents
     restart: unless-stopped
 
   #Tdarr - to transcode videos from one format to another like x265 or H.265
@@ -248,7 +235,7 @@ services:
       - ${BASE_PATH}/tdarr/server:/app/server
       - ${BASE_PATH}/tdarr/configs:/app/configs
       - ${BASE_PATH}/tdarr/logs:/app/logs
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data/media
       - /transcode_cache:/temp
     devices:
      - /dev/dri:/dev/dri #Required for HW transcoding /share QuickSync
@@ -264,7 +251,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/bazarr/config:/config
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data/media
     ports:
       - 6767:6767
     networks:
@@ -283,11 +270,7 @@ services:
     volumes:
       - ${BASE_PATH}/cross-seed/config:/config #To configure you have to manually nano the config file
       - ${BASE_PATH}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
-      - type: volume
-        source: nas_torrents
-        target: /data/cross-seeds
-        volume:
-          subpath: cross-seed
+      - ${MEDIA_SHARE}/torrents/cross-seed:/data/cross-seeds
       # - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/data/cross-seeds # A place to temp save current cross seed .torrent files
       #- ${MEDIA_SHARE}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
     command: daemon # this enables the search mode, change to daemon to specifically run the daemon
@@ -321,8 +304,7 @@ services:
     volumes:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
-      - ${MEDIA_SHARE}:/data
-      - nas_media:/data/media
+      - ${MEDIA_SHARE}/media:/data
       #- ${BASE_PATH}/unpackerr/config:/config
     restart: always
     user: 1000:1000 #Needs to run as 1000

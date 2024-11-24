@@ -44,7 +44,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/radarr/config:/config
-      - ${MEDIA_SHARE}/media:/data #Access to the entire /media
+      - ${MEDIA_SHARE}:/data #Access to the entire /media
     ports:
       - 7878:7878
     networks:
@@ -62,7 +62,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/sonarr/config:/config
-      - ${MEDIA_SHARE}/media:/data #Access to the entire /media
+      - ${MEDIA_SHARE}:/data #Access to the entire /media
     ports:
       - 8989:8989
     networks:
@@ -80,7 +80,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_SHARE}/media:/data
+      - ${MEDIA_SHARE}:/data
     ports:
       - 8787:8787
     networks:
@@ -98,7 +98,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_SHARE}/media:/data
+      - ${MEDIA_SHARE}:/data
     ports:
       - 8686:8686
     networks:
@@ -118,7 +118,7 @@ services:
     volumes:
       - ${BASE_PATH}/kapowarr/config:/app/db
       - ${MEDIA_SHARE}/temp_downloads:/app/temp_downloads
-      - ${MEDIA_SHARE}/media:/data
+      - ${MEDIA_SHARE}:/data
     restart: unless-stopped
     
   #Prowlarr - manages your Sonarr, Radarr and download client
@@ -165,7 +165,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/jellyseerr/config:/app/config
-      - ${MEDIA_SHARE}/media:/data #Access to the entire ${BASE_PATH}
+      - ${MEDIA_SHARE}:/data #Access to the entire ${BASE_PATH}
     networks:
       - proxy
       - starr

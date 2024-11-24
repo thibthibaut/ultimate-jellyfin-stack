@@ -206,7 +206,7 @@ services:
       - TORRENTING_PORT=8694 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
       - ${BASE_PATH}/qbittorent/config:/config
-      - ${MEDIA_SHARE}/torrents:/data/torrents
+      - ${MEDIA_SHARE}:/data
     restart: unless-stopped
 
   #Tdarr - to transcode videos from one format to another like x265 or H.265

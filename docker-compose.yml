@@ -132,7 +132,6 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/prowlarr/config:/config
-    ports:
     restart: unless-stopped
     
   #Autobrr - used to grab torrents using the trackers IRC channel - Increases seeding due to grabbing content before RSS feed

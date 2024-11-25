@@ -337,6 +337,8 @@ services:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
+    networks:
+      - proxy
       
   gluetun:
     image: qmcgaw/gluetun:latest

@@ -327,10 +327,12 @@ services:
   cabernet:
     image: ghcr.io/cabernetwork/cabernet:latest
     container_name: cabernet
-    network_mode: "service:gluetun"
     volumes:
       - ${BASE_PATH}/cabernet/extensions:/app/plugins_ext
       - ${BASE_PATH}/cabernet/data:/app/data
+    ports:
+      - 5004:5004/tcp
+      - 6077:6077/tcp
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
@@ -352,8 +354,6 @@ services:
       - 8080:8080/tcp # qBit
       - 8694:8694/tcp # qBit
       - 5656:5656/tcp # kapowarr
-      - 5004:5004/tcp # cabernet
-      - 6077:6077/tcp # cabernet
       - 8191:8191/tcp # flaresolverr
       - 9696:9696/tcp # prowlarr
     networks:

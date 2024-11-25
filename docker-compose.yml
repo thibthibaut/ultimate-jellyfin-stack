@@ -125,6 +125,7 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
+    network_mode: "service:gluetun"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -132,10 +133,6 @@ services:
     volumes:
       - ${BASE_PATH}/prowlarr/config:/config
     ports:
-      - 9696:9696
-    networks:
-      - proxy
-      - starr
     restart: unless-stopped
     
   #Autobrr - used to grab torrents using the trackers IRC channel - Increases seeding due to grabbing content before RSS feed
@@ -178,6 +175,7 @@ services:
     # DockerHub mirror flaresolverr/flaresolverr:latest
     image: alexfozor/flaresolverr:pr-1300-experimental
     container_name: flaresolverr
+    network_mode: "service:gluetun"
     environment:
       - LOG_LEVEL=info
       - LOG_HTML=false
@@ -361,6 +359,8 @@ services:
       - 5656:5656/tcp # kapowarr
       - 5004:5004/tcp # cabernet
       - 6077:6077/tcp # cabernet
+      - 8191/8191/tcp # flaresolverr
+      - 9696:9696 # prowlarr
     networks:
       - starr
       - proxy

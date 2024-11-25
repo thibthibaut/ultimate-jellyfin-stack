@@ -182,8 +182,6 @@ services:
       - TZ=${TZ}
       - LANG=en_GB
       - DRIVER=nodriver
-    networks:
-      - starr
     restart: unless-stopped
       
   #Qbittorent - torrenting software

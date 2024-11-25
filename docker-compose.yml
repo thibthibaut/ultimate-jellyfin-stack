@@ -184,8 +184,6 @@ services:
       - DRIVER=nodriver
     networks:
       - starr
-    ports:
-      - 8191:8191/tcp # flaresolverr
     restart: unless-stopped
       
   #Qbittorent - torrenting software
@@ -359,7 +357,7 @@ services:
       - 5004:5004/tcp # cabernet
       - 6077:6077/tcp # cabernet
       - 8191/8191/tcp # flaresolverr
-      - 9696:9696 # prowlarr
+      - 9696:9696/tcp # prowlarr
     networks:
       - starr
       - proxy

@@ -366,6 +366,7 @@ services:
     networks:
       - starr
       - proxy
+    command: update -enduser -providers mullvad
 
   homarr:
     container_name: homarr

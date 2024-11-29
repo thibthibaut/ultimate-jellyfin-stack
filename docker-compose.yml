@@ -341,7 +341,7 @@ services:
       - proxy
       
   gluetun:
-    image: qmcgaw/gluetun:v3
+    image: qmcgaw/gluetun:latest
     container_name: gluetun
     cap_add:
       - NET_ADMIN
@@ -353,6 +353,8 @@ services:
       - SERVER_CITIES=${VPN_SERVER_CITIES}
       - UPDATER_PERIOD=24h
       - WIREGUARD_MTU=${WIREGUARD_MTU:-1200}
+      - PUBLICIP_API=${PUBLICIP_API}
+      - PUBLICIP_API_TOKEN=${PUBLICIP_TOKEN}
     ports:
       - 2648:2648/tcp # cross-seed
       - 8080:8080/tcp # qBit

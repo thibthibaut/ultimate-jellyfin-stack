@@ -351,6 +351,7 @@ services:
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADD}
       - SERVER_CITIES=${VPN_SERVER_CITIES}
+      - UPDATER_PERIOD=24h
     ports:
       - 2648:2648/tcp # cross-seed
       - 8080:8080/tcp # qBit

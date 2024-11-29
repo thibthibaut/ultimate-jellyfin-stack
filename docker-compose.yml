@@ -366,7 +366,8 @@ services:
     networks:
       - starr
       - proxy
-    command: update -enduser -providers mullvad
+    # IF VPN CANNOT CONNECT, USE BELOW COMMAND TO UPDATE SERVERS.
+    # command: update -enduser -providers mullvad
 
   homarr:
     container_name: homarr

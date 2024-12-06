@@ -267,6 +267,9 @@ services:
       # - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/data/cross-seeds # A place to temp save current cross seed .torrent files
       #- ${MEDIA_SHARE}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
     command: daemon # this enables the search mode, change to daemon to specifically run the daemon
+    networks:
+      starr:
+        ipv4_address: ${CROSS-SEED_IP}
     
   #Wizarr - Allows you to create a share link that you can send to users to invite them to your media server
   wizarr:

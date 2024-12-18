@@ -456,7 +456,7 @@ services:
   jellystat:
     image: cyfershepard/jellystat:latest
     environment:
-      POSTGRES_USER: {$JELLYSTATDB_USER:-postgres}
+      POSTGRES_USER: ${JELLYSTATDB_USER:-postgres}
       POSTGRES_PASSWORD: ${JELLYSTATDB_PASS:-password}
       POSTGRES_IP: jellystat-db
       POSTGRES_PORT: 5432

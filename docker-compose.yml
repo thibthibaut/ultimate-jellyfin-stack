@@ -440,3 +440,34 @@ services:
     networks:
       - starr
       - proxy
+
+  jellystat-db:
+    image: postgres:15.2
+    environment:
+      POSTGRES_DB: 'jfstat'
+      POSTGRES_USER: ${JELLYSTATDB_USER:-postgres}
+      POSTGRES_PASSWORD: ${JELLYSTATDB_PASS:-password}
+    volumes:
+      - ${BASE_PATH}/jellystat/postgres-data:/var/lib/postgresql/data # Mounting the volume
+    restart: unless-stopped
+    networks:
+      - jellystat
+
+  jellystat:
+    image: cyfershepard/jellystat:latest
+    environment:
+      POSTGRES_USER: {$JELLYSTATDB_USER:-postgres}
+      POSTGRES_PASSWORD: ${JELLYSTATDB_PASS:-password}
+      POSTGRES_IP: jellystat-db
+      POSTGRES_PORT: 5432
+      JWT_SECRET: ${JWT_SECRET:-'my-secret-jwt-key'}
+    ports:
+      - 3000:3000 #Server Port
+    volumes:
+      - ${BASE_PATH}/jellystat/postgres-backup:/app/backend/backup-data # Mounting the volume
+    depends_on:
+      - jellystat-db
+    restart: unless-stopped
+    networks:
+      - jellystat
+      - proxy

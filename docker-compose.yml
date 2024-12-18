@@ -445,6 +445,7 @@ services:
 
   jellystat-db:
     image: postgres:15.2
+    container_name: jellystat-db
     environment:
       POSTGRES_DB: 'jfstat'
       POSTGRES_USER: ${JELLYSTATDB_USER:-postgres}
@@ -457,6 +458,7 @@ services:
 
   jellystat:
     image: cyfershepard/jellystat:latest
+    container_name: jellystat
     environment:
       POSTGRES_USER: ${JELLYSTATDB_USER:-postgres}
       POSTGRES_PASSWORD: ${JELLYSTATDB_PASS:-password}

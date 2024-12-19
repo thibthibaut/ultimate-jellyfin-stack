@@ -22,8 +22,9 @@ This Plex Stack includes the following services:
 - **Flaresolverr:** Used as a proxy server to bypass Cloudflare and DDoS-GUARD protection.
 - **Dozzle:** Used to view the logs of any container.
 - **Wizarr:** Used to create links that can be sent to users so they can be invited to your media server.
-- **Homarr** Used as a dashboard for docker containers with integrations for the *arr, torrent, and Jellyfin apps.
-- **Decluttarr** Used to maintain/clean your *arr app queues and downloads.
+- **Homarr:** Used as a dashboard for docker containers with integrations for the *arr, torrent, and Jellyfin apps.
+- **Decluttarr:** Used to maintain/clean your *arr app queues and downloads.
+- **Jellystat:** Used to monitor the usage of each user or content on your jellyfin server.
 
 ![containers](https://github.com/user-attachments/assets/855014b1-2716-4370-975d-a02564df881e)
 

@@ -234,6 +234,8 @@ services:
       - /transcode_cache:/temp
     devices:
      - /dev/dri:/dev/dri #Required for HW transcoding /share QuickSync
+    networks:
+      - proxy
       
   #Bazarr - for subtitles. Try to use SRT format if you can rather than PGS due to performance issues
   bazarr:
@@ -251,6 +253,7 @@ services:
       - 6767:6767
     networks:
       - starr
+      - proxy
       
   #Cross Seed - used to take torrents from one tracker and seed them on another without leeching first. Increases ratio
   #

@@ -241,7 +241,7 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     restart: unless-stopped
     environment:
-      - PUID=${PGID}
+      - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:

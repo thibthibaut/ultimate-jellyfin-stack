@@ -303,22 +303,13 @@ services:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
       - ${MEDIA_SHARE}:/data
-      - ${BASE_PATH}/unpackerr/config:/config
+      #- ${BASE_PATH}/unpackerr/config:/config
     restart: always
     user: ${PUID}:${PGID}
-    ports:
-      - 8383:8383/tcp
     # What you see below are defaults for this compose. You only need to modify things specific to your environment.
     # Remove apps and feature configs you do not use or need. 
     # ie. Remove all lines that begin with UN_CMDHOOK, UN_WEBHOOK, UN_FOLDER, UN_WEBSERVER, and other apps you do not use.
     environment:
-      - UN_WEBSERVER_METRICS=false
-      - UN_WEBSERVER_LISTEN_ADDR=0.0.0.0:8383
-      - UN_WEBSERVER_LOG_FILES=10
-      - UN_WEBSERVER_LOG_FILE_MB=10
-      - UN_WEBSERVER_URLBASE=/
-      - UN_WEBSERVER_LOG_FILE=/config/unpackerr-web.log
-      - UN_LOG_FILE=/config/unpackerr.log
       - UN_START_DELAY=1m
       #- UMASK=002
       - TZ=${TZ}

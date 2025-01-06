@@ -262,6 +262,7 @@ services:
     image: ghcr.io/cross-seed/cross-seed:latest
     container_name: cross-seed
     network_mode: "service:gluetun"
+    user: ${PUID}:${PGID}
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

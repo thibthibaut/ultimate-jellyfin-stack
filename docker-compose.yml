@@ -148,9 +148,6 @@ services:
       - PGID=${PGID}
     volumes:
       - ${BASE_PATH}/autobrr/config:/config
-    networks:
-      - proxy
-      - starr
 
   #jellyseer - allows users to request media on their own
   jellyseerr:

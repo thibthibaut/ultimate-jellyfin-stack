@@ -141,14 +141,13 @@ services:
     container_name: autobrr
     image: ghcr.io/autobrr/autobrr:latest
     restart: unless-stopped
+    network_mode: "service:gluetun"
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
     volumes:
       - ${BASE_PATH}/autobrr/config:/config
-    ports:
-      - 7474:7474
     networks:
       - proxy
       - starr
@@ -373,6 +372,7 @@ services:
       - 5656:5656/tcp # kapowarr
       - 8191:8191/tcp # flaresolverr
       - 9696:9696/tcp # prowlarr
+      - 7474:7474 # autobrr
     networks:
       - starr
       - proxy

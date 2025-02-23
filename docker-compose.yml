@@ -9,6 +9,8 @@ networks:
     external: true
   jellystat:
     external: true
+  gluetun_network:
+    external: true
       
 services:
   # REVERSE PROXY IS IN OTHER DOCKER COMPOSE STACK

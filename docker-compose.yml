@@ -50,8 +50,10 @@ services:
     ports:
       - 7878:7878
     networks:
-      - proxy
-      - starr
+      proxy:
+      starr:
+      gluetun_network:
+        ipv4_address: ${RADARR_IPV4}
     restart: unless-stopped
     
   #Sonarr - used to find shows automatically
@@ -68,8 +70,10 @@ services:
     ports:
       - 8989:8989
     networks:
-      - proxy
-      - starr
+      proxy:
+      starr:
+      gluetun_network:
+        ipv4_address: ${SONARR_IPV4}
     restart: unless-stopped
   
   #Readarr - Used to download books
@@ -373,6 +377,7 @@ services:
     networks:
       - starr
       - proxy
+      - gluetun_network
     # IF VPN CANNOT CONNECT, USE BELOW COMMAND TO UPDATE SERVERS.
     # command: update -enduser -providers mullvad
 

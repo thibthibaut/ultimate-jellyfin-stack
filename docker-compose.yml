@@ -234,7 +234,7 @@ services:
       - ${BASE_PATH}/tdarr/configs:/app/configs
       - ${BASE_PATH}/tdarr/logs:/app/logs
       - ${MEDIA_SHARE}:/data
-      - /transcode_cache:/temp
+      - ${TRANSCODE_PATH:-/transcode_cache}:/temp
     devices:
      - /dev/dri:/dev/dri #Required for HW transcoding /share QuickSync
     networks:

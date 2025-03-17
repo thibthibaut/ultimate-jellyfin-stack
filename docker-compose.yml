@@ -27,8 +27,6 @@ services:
     ports:
       - 8096:8096
       - 8920:8920
-    devices:
-     - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
     volumes:
       - ${BASE_PATH}/jellyfin/config:/config
       - ${MEDIA_SHARE}/media:/media
@@ -79,55 +77,55 @@ services:
     restart: unless-stopped
   
   #Readarr - Used to download books
-  readarr:
-    image: lscr.io/linuxserver/readarr:develop
-    container_name: readarr
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_SHARE}:/data
-    ports:
-      - 8787:8787
-    networks:
-      - proxy
-      - starr
-    restart: unless-stopped
+  # readarr:
+  #   image: lscr.io/linuxserver/readarr:develop
+  #   container_name: readarr
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${BASE_PATH}/readarr/config:/config
+  #     - ${MEDIA_SHARE}:/data
+  #   ports:
+  #     - 8787:8787
+  #   networks:
+  #     - proxy
+  #     - starr
+  #   restart: unless-stopped
     
   #Lidarr - Used to download music 
-  lidarr:
-    image: lscr.io/linuxserver/lidarr:latest
-    container_name: lidarr
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_SHARE}:/data
-    ports:
-      - 8686:8686
-    networks:
-      - proxy
-      - starr
-    restart: unless-stopped
+  # lidarr:
+  #   image: lscr.io/linuxserver/lidarr:latest
+  #   container_name: lidarr
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${BASE_PATH}/lidarr/config:/config
+  #     - ${MEDIA_SHARE}:/data
+  #   ports:
+  #     - 8686:8686
+  #   networks:
+  #     - proxy
+  #     - starr
+  #   restart: unless-stopped
 
   #Kapowarr - Used to download comics
-  kapowarr:
-    image: 'mrcas/kapowarr:latest'
-    container_name: kapowarr
-    network_mode: "service:gluetun"
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${BASE_PATH}/kapowarr/config:/app/db
-      - ${MEDIA_SHARE}/temp_downloads:/app/temp_downloads
-      - ${MEDIA_SHARE}:/data
-    restart: unless-stopped
+  # kapowarr:
+  #   image: 'mrcas/kapowarr:latest'
+  #   container_name: kapowarr
+  #   network_mode: "service:gluetun"
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${BASE_PATH}/kapowarr/config:/app/db
+  #     - ${MEDIA_SHARE}/temp_downloads:/app/temp_downloads
+  #     - ${MEDIA_SHARE}:/data
+  #   restart: unless-stopped
     
   #Prowlarr - manages your Sonarr, Radarr and download client
   prowlarr:
@@ -210,35 +208,35 @@ services:
   #Tdarr - to transcode videos from one format to another like x265 or H.265
   #
   #This container requires a decent amount of horse power to run but will save space in the long run
-  tdarr:
-    container_name: tdarr
-    image: ghcr.io/haveagitgat/tdarr:latest
-    restart: unless-stopped
-    ports:
-      - 8265:8265 # webUI port
-      - 8266:8266 # server port
-    environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - UMASK_SET=002
-      - nodeName=ServerNode
-      - serverIP=0.0.0.0
-      - serverPort=8266
-      - webUIPort=8265
-      - internalNode=true
-      - inContainer=true
-      - ffmpegVersion=6
-    volumes:
-      - ${BASE_PATH}/tdarr/server:/app/server
-      - ${BASE_PATH}/tdarr/configs:/app/configs
-      - ${BASE_PATH}/tdarr/logs:/app/logs
-      - ${MEDIA_SHARE}:/data
-      - ${TRANSCODE_PATH:-/transcode_cache}:/temp
-    devices:
-     - /dev/dri:/dev/dri #Required for HW transcoding /share QuickSync
-    networks:
-      - proxy
+  # tdarr:
+  #   container_name: tdarr
+  #   image: ghcr.io/haveagitgat/tdarr:latest
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8265:8265 # webUI port
+  #     - 8266:8266 # server port
+  #   environment:
+  #     - TZ=${TZ}
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - UMASK_SET=002
+  #     - nodeName=ServerNode
+  #     - serverIP=0.0.0.0
+  #     - serverPort=8266
+  #     - webUIPort=8265
+  #     - internalNode=true
+  #     - inContainer=true
+  #     - ffmpegVersion=6
+  #   volumes:
+  #     - ${BASE_PATH}/tdarr/server:/app/server
+  #     - ${BASE_PATH}/tdarr/configs:/app/configs
+  #     - ${BASE_PATH}/tdarr/logs:/app/logs
+  #     - ${MEDIA_SHARE}:/data
+  #     - ${TRANSCODE_PATH:-/transcode_cache}:/temp
+  #   devices:
+  #    - /dev/dri:/dev/dri #Required for HW transcoding /share QuickSync
+  #   networks:
+  #     - proxy
       
   #Bazarr - for subtitles. Try to use SRT format if you can rather than PGS due to performance issues
   bazarr:
@@ -261,21 +259,21 @@ services:
   #Cross Seed - used to take torrents from one tracker and seed them on another without leeching first. Increases ratio
   #
   #This is fairly advanced but can be removed if you don't think you will need it. Some trackers also don't allow this
-  cross-seed:
-    image: ghcr.io/cross-seed/cross-seed:latest
-    container_name: cross-seed
-    network_mode: "service:gluetun"
-    user: ${PUID}:${PGID}
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-    volumes:
-      - ${BASE_PATH}/cross-seed/config:/config #To configure you have to manually nano the config file
-      - ${BASE_PATH}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
-      - ${MEDIA_SHARE}/torrents/cross-seed:/data/cross-seeds
-      # - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/data/cross-seeds # A place to temp save current cross seed .torrent files
-      #- ${MEDIA_SHARE}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
-    command: daemon # this enables the search mode, change to daemon to specifically run the daemon
+  # cross-seed:
+  #   image: ghcr.io/cross-seed/cross-seed:latest
+  #   container_name: cross-seed
+  #   network_mode: "service:gluetun"
+  #   user: ${PUID}:${PGID}
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #   volumes:
+  #     - ${BASE_PATH}/cross-seed/config:/config #To configure you have to manually nano the config file
+  #     - ${BASE_PATH}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
+  #     - ${MEDIA_SHARE}/torrents/cross-seed:/data/cross-seeds
+  #     # - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/data/cross-seeds # A place to temp save current cross seed .torrent files
+  #     #- ${MEDIA_SHARE}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
+  #   command: daemon # this enables the search mode, change to daemon to specifically run the daemon
     
   #Wizarr - Allows you to create a share link that you can send to users to invite them to your media server
   wizarr:
@@ -334,21 +332,21 @@ services:
     networks:
       - starr
 
-  cabernet:
-    image: ghcr.io/cabernetwork/cabernet:latest
-    container_name: cabernet
-    volumes:
-      - ${BASE_PATH}/cabernet/extensions:/app/plugins_ext
-      - ${BASE_PATH}/cabernet/data:/app/data
-    ports:
-      - 5004:5004/tcp
-      - 6077:6077/tcp
-    environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
-    networks:
-      - proxy
+  # cabernet:
+  #   image: ghcr.io/cabernetwork/cabernet:latest
+  #   container_name: cabernet
+  #   volumes:
+  #     - ${BASE_PATH}/cabernet/extensions:/app/plugins_ext
+  #     - ${BASE_PATH}/cabernet/data:/app/data
+  #   ports:
+  #     - 5004:5004/tcp
+  #     - 6077:6077/tcp
+  #   environment:
+  #     - TZ=${TZ}
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #   networks:
+  #     - proxy
       
   gluetun:
     image: qmcgaw/gluetun:latest
@@ -358,16 +356,22 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     environment:
-      - VPN_SERVICE_PROVIDER=mullvad
-      - VPN_TYPE=wireguard
-      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
-      - WIREGUARD_ADDRESSES=${WIREGUARD_ADD}
-      - SERVER_CITIES=${VPN_SERVER_CITIES}
+      # - VPN_SERVICE_PROVIDER=mullvad
+      # - VPN_TYPE=wireguard
+      # - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
+      # - WIREGUARD_ADDRESSES=${WIREGUARD_ADD}
+      # - SERVER_CITIES=${VPN_SERVER_CITIES}
+      # - UPDATER_PERIOD=24h
+      # - UPDATER_VPN_SERVICE_PROVIDERS=mullvad
+      # - WIREGUARD_MTU=${WIREGUARD_MTU:-1200}
+      # - PUBLICIP_API=${PUBLICIP_API}
+      # - PUBLICIP_API_TOKEN=${PUBLICIP_TOKEN}
+      - VPN_SERVICE_PROVIDER=nordvpn
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - SERVER_REGIONS=Spain
+      - VPN_TYPE=openvpn
       - UPDATER_PERIOD=24h
-      - UPDATER_VPN_SERVICE_PROVIDERS=mullvad
-      - WIREGUARD_MTU=${WIREGUARD_MTU:-1200}
-      - PUBLICIP_API=${PUBLICIP_API}
-      - PUBLICIP_API_TOKEN=${PUBLICIP_TOKEN}
     ports:
       - 2468:2468/tcp # cross-seed
       - 8080:8080/tcp # qBit
